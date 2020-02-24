@@ -1,0 +1,126 @@
+body {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(218, 255, 249);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.card {
+    background-image: url(image041.jpg);
+    background-size: cover;
+    height: 125px;
+    width: 90px;
+    border: rgb(136, 136, 136) solid 1px;
+    border-radius: 4px;
+    margin: 4px;
+}
+.playerHiddenCards {
+    position: absolute;
+    
+    display: inline-flex;
+    align-items: center;
+    bottom: 22%;
+    cursor: pointer;
+    
+}
+.playerRevealedCards {
+    height: 150px;
+    width: 100px;
+    background-color: blue;
+    position: absolute
+    display: inline-flex;
+    align-items: center;
+    bottom: 22%;
+
+    
+}
+.enemyHiddenCards {
+    position: absolute;
+    
+    display: inline-flex;
+    align-items: center;
+    top: 22%;
+    
+    
+    
+}
+.playersHandCards {
+    position: absolute;
+    display: inline-flex;
+    bottom: 5%;
+    
+}
+.cardsOnTable {
+    display: flex;
+    position: relative;
+   
+    justify-content: center;
+    height: 100vh;
+    width: 70%;
+   
+    
+}
+.enemyHandCards {
+    position: absolute;
+    display: inline-flex;
+    top: 5%;
+}
+.cardsPlace {
+    position: absolute;
+    top: 42%;
+    
+    height: 125px;
+    width: 90px;
+    
+    border-radius: 4px;
+    margin: 4px;
+}
+.deck {
+    background-image: url(image041.jpg);
+    background-size: cover;
+    position: absolute;
+    right: 0;
+    top: 42%;
+    height: 125px;
+    width: 90px;
+    border: rgb(136, 136, 136) solid 1px;
+    border-radius: 4px;
+    margin: 4px;
+
+}
+.cardCounter {
+    font-family: Rockwell Extra Bold,Rockwell Bold,monospace;
+    font-size: 2rem;
+    position: absolute;
+    right: 35px;
+    top: 38%;
+}
+.cardflipped {
+    
+    border: rgb(136, 136, 136) solid 1px;
+    border-radius: 4px;
+    height: 125px;
+    width: 90px;
+    margin: 4px;
+    
+
+
+    
+}
+.hover:hover {
+    position: relative;
+    bottom: 30px; 
+    cursor: pointer;
+    
+}
+.pause {
+    cursor: pointer;
+    position: relative;
+    bottom: 30px;
+
+}
+ #currentCard {
+     
+ }
