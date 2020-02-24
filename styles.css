@@ -25,17 +25,7 @@ body {
     cursor: pointer;
     
 }
-.playerRevealedCards {
-    height: 150px;
-    width: 100px;
-    background-color: blue;
-    position: absolute
-    display: inline-flex;
-    align-items: center;
-    bottom: 22%;
 
-    
-}
 .enemyHiddenCards {
     position: absolute;
     
@@ -121,6 +111,30 @@ body {
     bottom: 30px;
 
 }
- #currentCard {
-     
- }
+ 
+/* .moveCard {
+    
+    display: inline-flex;
+    position: absolute;
+    bottom: 90px;
+    right: 280px;
+
+   
+      
+} */
+
+
+.playerRevealedCards {
+
+    position: absolute;
+    
+    display: inline-flex;
+    align-items: center;
+    bottom: 21.5%;
+    
+}
+
+
+.moveCard {
+
+}
