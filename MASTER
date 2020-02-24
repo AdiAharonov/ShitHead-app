@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShitHead</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+   
+    <section class="cardsOnTable" id="cardsOnTable">
+        <div class="playerHiddenCards" id="playerHiddenCards">
+            <div class="card" data-card="1" id="hiddenP1"></div>
+            <div class="card" data-card="2" id="hiddenP2"></div>
+            <div class="card" data-card="3" id="hiddenP3"></div>
+        </div>
+        <div class="playerRevealedCards" id="playerRevealedCards"></div>
+        <div class="enemyHiddenCards" id="enemyHiddenCards">
+            <div class="card" data-card="4" id="hiddenE1"></div>
+            <div class="card" data-card="5" id="hiddenE2"></div>
+            <div class="card" data-card="6" id="hiddenE3"></div>
+        </div>
+        <div class="enemyRevealedCards" id="enemyRevealedCards"></div>
+        <div class="playersHandCards" id="playersHandCards">
+            <div class="card" data-card="7" id="handCard1" onclick="selectCard(this)"></div>
+            <div class="card" data-card="8" id="handCard2" onclick="selectCard(this)"></div>
+            <div class="card" data-card="9" id="handCard3" onclick="selectCard(this)"></div>
+            <div class="card" data-card="10" id="handCard4" onclick="selectCard(this)"></div>
+            <div class="card" data-card="11" id="handCard5" onclick="selectCard(this)"></div>
+            <div class="card" data-card="12" id="handCard6" onclick="selectCard(this)"></div>
+        </div>
+        <div class="enemyHandCards" id="enemyHandCards">
+            <div class="card" data-card="13" id="eCard1"></div>
+            <div class="card" data-card="14" id="eCard2"></div>
+            <div class="card" data-card="15" id="eCard3"></div>
+            <div class="card" data-card="16" id="eCard4"></div>
+            <div class="card" data-card="17" id="eCard5"></div>
+            <div class="card" data-card="18" id="eCard6"></div>
+        </div> 
+        <div class="deck" id="deck" onclick="startGame()">
+        </div>    
+           
+        <div class="cardCounter" id="cardCounter">
+            34
+        </div>
+        <div class="cardsPlace" id="cardsPlace">
+
+        </div>
+    </section>
+    <script src="js/2players.js"></script>
+</body>
+</html>
