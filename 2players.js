@@ -53,10 +53,8 @@ function selectCard(card) {
         card.classList.add('pause');
         card.setAttribute("id", "currentCard" );
         currentCard = document.getElementById('currentCard');
-        hiddenP1.addEventListener('click', pickPlace);
-        hiddenP2.addEventListener('click', pickPlace);
-        hiddenP3.addEventListener('click', pickPlace);
-        // currentIndex = playerHand.indexOf(card);
+        
+        currentIndex = playerHand.indexOf(card);
         // console.log(currentCard, currentIndex);
         holdingCard = true;
          
@@ -74,18 +72,40 @@ function selectCard(card) {
  
 } 
 
-function pickPlace(card) {
+function pickPlace() {
+    let fixedCard = currentCard;
+    
+    fixedCard.setAttribute("id", "fixedCard");
+    
+    fixedCard.classList.remove('pause');
+    fixedCard.classList.add('moveCard');
+    fixedCard.classList.remove('hover');
     
     playerRevealedCards = playerHand.splice(currentIndex, 1);
-    currentCard.classList.remove('pause');
-    // currentCard.setAttribute("id", "fixedCard");
+    $(".moveCard").appendTo("#playerRevealedCards");
+    $(fixedCard).prop( "onclick", null );
+    if (playerRevealedCards.length === 2) {
+        return;
+    }
+
     
+
+    // var xPosition = clickPlace.clientX;
+    // var yPosition = clickPlace.clientY;
+
+    // var translate3dValue = "translate3d(" + xPosition + "px," + yPosition + "px, 0)";
+    // fixedCard.style.transform = translate3dValue;
+    
+    
+    currentIndex = null;
+    currentCard = null;
     holdingCard = false;
      
     
 
 
 }
+
 
 
 // function updateArray(array) {
@@ -173,6 +193,3 @@ function randomCard() {
 }
  
 
-function getClickedPosition(e) {
-
-}
