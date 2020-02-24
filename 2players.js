@@ -1,0 +1,178 @@
+let deck = [ 'AC', 'AD', 'AH', 'AS',
+'2C', '2D', '2H', '2S',
+'3C', '3D', '3H', '3S', 
+'4C', '4D', '4H', '4S',
+'5C', '5D', '5H', '5S',
+'6C', '6D', '6H', '6S',
+'7C', '7D', '7H', '7S', 
+'8C', '8D', '8H', '8S',
+'9C', '9D', '9H', '9S',
+'10C', '10D', '10H', '10S',
+'JC', 'JD', 'JH', 'JS',
+'QC', 'QD', 'QH', 'QS', 
+'KC', 'KD', 'KH', 'KS'];
+
+let hiddenP1, hiddenP2, hiddenP3, hiddenE1, hiddenE2, hiddenE3,
+handCard1, handCard2, handCard3, handCard4, handCard5, handCard6,
+eCard1, eCard2, eCard3, eCard4, eCard5, eCard6;
+
+
+hiddenP1 = document.getElementById('hiddenP1');
+hiddenP2 = document.getElementById('hiddenP2');
+hiddenP3 = document.getElementById('hiddenP3');
+hiddenE1 = document.getElementById('hiddenE1');
+hiddenE2 = document.getElementById('hiddenE2');
+hiddenE3 = document.getElementById('hiddenE3');
+
+handCard1 = document.getElementById('handCard1');
+handCard2 = document.getElementById('handCard2');
+handCard3 = document.getElementById('handCard3');
+handCard4 = document.getElementById('handCard4');
+handCard5 = document.getElementById('handCard5');
+handCard6 = document.getElementById('handCard6');
+
+eCard1 = document.getElementById('eCard1');
+eCard2 = document.getElementById('eCard2');
+eCard3 = document.getElementById('eCard3');
+eCard4 = document.getElementById('eCard4');
+eCard5 = document.getElementById('eCard5');
+eCard6 = document.getElementById('eCard6');
+
+let currentIndex;
+let currentCard;
+
+
+function selectCard(card) {
+
+    if(!gameStarted) {
+        return;
+    }
+    
+    if(card && !holdingCard) {
+
+        card.classList.add('pause');
+        card.setAttribute("id", "currentCard" );
+        currentCard = document.getElementById('currentCard');
+        hiddenP1.addEventListener('click', pickPlace);
+        hiddenP2.addEventListener('click', pickPlace);
+        hiddenP3.addEventListener('click', pickPlace);
+        // currentIndex = playerHand.indexOf(card);
+        // console.log(currentCard, currentIndex);
+        holdingCard = true;
+         
+        
+        
+        
+    } 
+    
+    else if(card === currentCard && holdingCard) {
+        card.classList.remove('pause');
+        card.setAttribute("id", "priviousCard")
+        holdingCard = false;
+        
+    } 
+ 
+} 
+
+function pickPlace(card) {
+    
+    playerRevealedCards = playerHand.splice(currentIndex, 1);
+    currentCard.classList.remove('pause');
+    // currentCard.setAttribute("id", "fixedCard");
+    
+    holdingCard = false;
+     
+    
+
+
+}
+
+
+// function updateArray(array) {
+
+//     for (i = 0; i <= array.length; i++) {
+//         console.log(array[i]);
+//         // attachPicToCard(array[i]);
+
+//     }
+
+// }
+
+
+
+//start game
+
+
+//all the needed arrays
+let playerHand = [handCard1, handCard2, handCard3, handCard4, handCard5, handCard6];
+let playerHiddenCards = [hiddenP1, hiddenP2, hiddenP3];
+let enemyHand = [eCard1, eCard2, eCard3, eCard4, eCard5, eCard6];
+let enemyHiddenCards = [hiddenE1, hiddenE2, hiddenE3];
+let cardsPlace = document.getElementById('cardsPlace');
+cardsPlace = [];
+let playerRevealedCards = document.getElementById('playerRevealedCards');
+playerRevealedCards = [];
+let holdingCard = false;
+let gameStarted;
+
+function startGame() {
+    setHandCards(playerHiddenCards, playerHand);
+    setEnemyCards(enemyHiddenCards, enemyHand);
+    gameStarted = true;
+    
+}
+
+
+function setHandCards(hiddenarray, array) {
+    
+    
+    for (let card of array) {
+        const rndCard = randomCard();
+        card.setAttribute("value", rndCard);
+        card.classList.remove('card');
+        card.classList.add('hover');
+        card.innerHTML="<img class='cardflipped' src='css/cards/" + rndCard + ".jpg'/>";
+         
+    } 
+    
+   for (let card of hiddenarray) {
+    const rndCard = randomCard();
+    card.setAttribute("value", rndCard);
+    
+   }
+
+
+}
+
+function setEnemyCards(hiddenarray, array) {
+
+
+    for (let card of array) {
+        const rndCard = randomCard();
+        card.setAttribute("value", rndCard);
+        
+        
+         
+         
+    } 
+    
+   for (let card of hiddenarray) {
+    const rndCard = randomCard();
+    card.setAttribute("value", rndCard);
+    
+   }
+
+}
+
+
+function randomCard() {
+    let rndCrd = Math.floor(Math.random() * deck.length);
+    let newCard = deck.splice(rndCrd, 1);
+    return newCard[0];
+    
+}
+ 
+
+function getClickedPosition(e) {
+
+}
