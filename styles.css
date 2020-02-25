@@ -13,7 +13,7 @@ body {
     height: 125px;
     width: 90px;
     border: rgb(136, 136, 136) solid 1px;
-    border-radius: 4px;
+    border-radius: 9px;
     margin: 4px;
 }
 .playerHiddenCards {
@@ -76,7 +76,7 @@ body {
     height: 125px;
     width: 90px;
     border: rgb(136, 136, 136) solid 1px;
-    border-radius: 4px;
+    border-radius: 9px;
     margin: 4px;
 
 }
@@ -137,4 +137,51 @@ body {
 
 .moveCard {
 
+}
+
+.moveECard {
+
+}
+
+.enemyRevealedCards {
+    position: absolute;
+    
+    display: inline-flex;
+    align-items: center;
+    top: 22%;
+    
+}
+
+.start {
+    background: none;
+    border: rgb(74, 147, 196) solid 1px;
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(47, 130, 185);
+    cursor: pointer;
+    border-radius: 15px;
+    outline: none;
+}
+
+.ready {
+    position: absolute;
+    background: none;
+    border: rgb(74, 147, 196) solid 1px;
+    font-size: 1.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(47, 130, 185);
+    cursor: pointer;
+    border-radius: 15px;
+    outline: none;
+    left: 30%;
+    bottom: 30%;
+}
+
+.start:hover {
+    background-color: rgba(35, 35, 92, 0.418);
+    color: #eee;
+}
+.ready:hover {
+    background-color: rgba(35, 35, 92, 0.418);
+    color: #eee;
 }
