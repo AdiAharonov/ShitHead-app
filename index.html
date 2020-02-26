@@ -6,9 +6,10 @@
     <title>ShitHead</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
+<body class="body">
     <button class="start" id="start" onclick="startGame()">Start Game</button>
-   
+    <div class="PlayerName" id="PlayerName"></div>
+    <div class="EnemyName" id="EnemyName">Jason</div>
     <section class="cardsOnTable" id="cardsOnTable">
         <div class="playerHiddenCards" id="playerHiddenCards">
             <div class="card" data-card="1" id="hiddenP1" onclick="pickPlace()"></div>
@@ -49,8 +50,9 @@
             34
         </div>
         <div class="cardsPlace" id="cardsPlace">
-
+            
         </div>
+        
     </section>
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/2players.js"></script>

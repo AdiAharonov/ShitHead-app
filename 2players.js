@@ -95,7 +95,7 @@ function pickPlace() {
     $(".moveCard").appendTo("#playerRevealedCards");
 
     
-    // $(fixedCard).prop( "onclick", null );
+    
     
 
     if (playerRevealedCards.length === 2) {
@@ -113,16 +113,37 @@ function pickPlace() {
 
 function goBack(card) {
 
-    // card.classList.add('hover');
+    card.setAttribute("id", "handCard");
+    card.classList.add('hover');
     $(card).appendTo("#playersHandCards");
     card.classList.remove('moveCard');
     
     $(card).appendTo("#playerHand");
     $(card).attr( "onclick", " selectCard(this)");
     
+    
 }
 
+
+// move revealed cards to defrent array
 function ready() {
+
+    moveCardsToArray() 
+    moveCardsToArray() 
+
+    if (playerHand.length === 3 ) {
+        
+        $(".ready").remove();
+        startPlay()
+        
+
+    }
+    
+}
+
+
+
+function moveCardsToArray() {
 
     for (const card of playerHand) {
         
@@ -135,12 +156,11 @@ function ready() {
             
 
         }
+        
 
     }
 
-    
 }
-
 
 //all the needed arrays
 let playerHand = [handCard1, handCard2, handCard3, handCard4, handCard5, handCard6];
@@ -158,6 +178,11 @@ let gameStarted;
 
 function startGame() {
 
+    let PlayerName = document.getElementById('PlayerName');
+    PlayerName.innerText = prompt("Please insert your name: ");
+    
+    
+    console.log(PlayerName);
     
 
     setHandCards(playerHiddenCards, playerHand);
@@ -197,13 +222,13 @@ function setHandCards(hiddenarray, array) {
         card.classList.remove('card');
         card.classList.add('hover');
         card.innerHTML="<img class='cardflipped' src='css/cards/" + rndCard + ".jpg'/>";
-         
+         convertNameToValue(card)
     } 
     
    for (let card of hiddenarray) {
     const rndCard = randomCard();
     card.setAttribute("name", rndCard);
-    
+    convertNameToValue(card)
    }
 
 
@@ -215,7 +240,7 @@ function setEnemyCards(hiddenarray, array) {
     for (let card of array) {
         const rndCard = randomCard();
         card.setAttribute("name", rndCard);
-        
+        convertNameToValue(card)
         
          
          
@@ -224,7 +249,7 @@ function setEnemyCards(hiddenarray, array) {
    for (let card of hiddenarray) {
     const rndCard = randomCard();
     card.setAttribute("name", rndCard);
-    
+    convertNameToValue(card)
    }
 
 }
@@ -381,4 +406,57 @@ for (const card of enemyHand) {
 
     
     
+}
+
+
+
+// Start Game
+
+
+
+
+function startPlay() {
+
+    $(".cardsPlace").attr("onclick", "cardToPile()");
+
+
+    
+    // Who starts
+    const Turn = document.getElementById("Turn");
+    
+
+}
+
+function selectTurn(playerarray, enemyarray) {
+
+    for (const card of playerarray) {
+
+        if ( card.getAttribute("name") === "4C") {
+
+            $(Turn).append(content);
+            return;
+        }
+
+    }
+
+    for (const card of enemyarray) {
+
+        if ( card.getAttribute("name") === "4C") {
+
+            Turn = false;
+            return;
+        }
+
+    }
+    
+
+
+
+
+}
+
+function cardToPile(card) {
+
+    $(card).appendTo(cardsPlace);
+
 }
