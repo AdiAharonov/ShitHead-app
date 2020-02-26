@@ -6,6 +6,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    background-image: url(/css/Body\ background.jpg);
 }
 .card {
     background-image: url(image041.jpg);
@@ -15,6 +16,7 @@ body {
     border: rgb(136, 136, 136) solid 1px;
     border-radius: 9px;
     margin: 4px;
+    box-shadow: 3px 2px 3px;
 }
 .playerHiddenCards {
     position: absolute;
@@ -41,6 +43,7 @@ body {
     display: inline-flex;
     bottom: 5%;
     
+    
 }
 .cardsOnTable {
     display: flex;
@@ -58,18 +61,23 @@ body {
     top: 5%;
 }
 .cardsPlace {
-    position: absolute;
-    top: 42%;
-    
-    height: 125px;
-    width: 90px;
-    
-    border-radius: 4px;
-    margin: 4px;
 
-    border: rgba(8, 90, 138, 0.644) solid 1px;
-    box-shadow: 4px 4px 8px;
-    cursor: pointer;
+
+position: absolute;
+top: 42%;
+
+border-radius: 4px;
+border: rgba(11, 126, 30, 0.644) solid 1px;
+
+height: 125px;
+width: 90px;
+    
+border-radius: 4px;
+margin: 4px;
+
+    
+box-shadow: 4px 4px 8px;
+cursor: pointer;
 }
 .deck {
     background-image: url(image041.jpg);
@@ -82,6 +90,7 @@ body {
     border: rgb(136, 136, 136) solid 1px;
     border-radius: 9px;
     margin: 4px;
+    box-shadow: 5px 2px 2px;
 
 }
 .cardCounter {
@@ -98,6 +107,7 @@ body {
     height: 125px;
     width: 90px;
     margin: 4px;
+    box-shadow: 3px 2px 3px;
     
 
 
@@ -158,35 +168,35 @@ body {
 
 .start {
     background: none;
-    border: rgb(74, 147, 196) solid 1px;
+    border: rgb(22, 66, 35) solid 1px;
     font-size: 2rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: rgb(47, 130, 185);
+    color: rgb(236, 232, 232);
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 6px;
     outline: none;
 }
 
 .ready {
     position: absolute;
     background: none;
-    border: rgb(74, 147, 196) solid 1px;
+    border: rgb(22, 66, 35) solid 1px;
     font-size: 1.5rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: rgb(47, 130, 185);
+    color: rgb(236, 232, 232);
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 6px;
     outline: none;
     left: 30%;
     bottom: 30%;
 }
 
 .start:hover {
-    background-color: rgba(35, 35, 92, 0.418);
+    background-color: rgba(10, 85, 20, 0.418);
     color: #eee;
 }
 .ready:hover {
-    background-color: rgba(35, 35, 92, 0.418);
+    background-color: rgba(10, 85, 20, 0.418);
     color: #eee;
 }
 
@@ -195,7 +205,7 @@ body {
     position: absolute;
     top: 10%;
     left: 10%;
-    border: teal solid 1px;
+    border: rgb(22, 66, 35) solid 1px;
     font-size: 2.5rem;
     padding: 20px;
     width: 120px;
@@ -203,6 +213,7 @@ body {
     text-shadow: rgba(11, 51, 88, 0.274) 2px 8px 3px;
     font-family: FreeMono, monospace;
     border-radius: 30px;
+    
 
 }
 
@@ -210,7 +221,7 @@ body {
     position: absolute;
     bottom: 10%;
     left: 10%;
-    border: teal solid 1px;
+    border: rgb(22, 66, 35) solid 1px;
     font-size: 2.5rem;
     padding: 20px;
     width: 120px;
@@ -219,4 +230,20 @@ body {
     font-family: FreeMono, monospace;
     border-radius: 30px;
     text-transform: capitalize;
+}
+
+.Turn {
+    box-shadow: rgb(154, 247, 32) 1px 1px 25px;
+    color: #eee;
+    border: none;
+}
+
+
+.Pile {
+    
+    position: absolute;
+    
+    
+    
+
 }
