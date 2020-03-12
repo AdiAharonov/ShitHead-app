@@ -327,7 +327,7 @@ function convertNameToValue(card) {
     
     if (card.getAttribute('name') === 'AC' || card.getAttribute('name') === 'AD' || card.getAttribute('name') === 'AH' || card.getAttribute('name') === 'AS' ) {
 
-        card.setAttribute('value', '1');
+        card.setAttribute('value', '14');
 
     }
     if (card.getAttribute('name') === '2C' || card.getAttribute('name') === '2D' || card.getAttribute('name') === '2H' || card.getAttribute('name') === '2S' ) {
@@ -433,7 +433,7 @@ function startPlay() {
 
     pickFirst();
 
-    // enemy start 
+    // enemy start (player is manual start)
     if (isPlayersTurn === false) {
         setTimeout(enemyPlayAlgoritem, 2000);
             for (var i = 0; i < enemyHand.length; i++) {
@@ -602,7 +602,6 @@ function  getCardFromDeck(array) {
 
 
 function enemyPlayAlgoritem() {
-
     
    if (enemyThrowCradCnt === 0) {checkForCardValue("4")};
    if (enemyThrowCradCnt === 0) {checkForCardValue("5")} ;
@@ -613,11 +612,12 @@ function enemyPlayAlgoritem() {
    if (enemyThrowCradCnt === 0) {checkForCardValue("11")};
    if (enemyThrowCradCnt === 0) {checkForCardValue("12")};
    if (enemyThrowCradCnt === 0) {checkForCardValue("13")};
-   if (enemyThrowCradCnt === 0) {checkForCardValue("1")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("14")};
    if (enemyThrowCradCnt === 0) {checkForCardValue("2")};
    if (enemyThrowCradCnt === 0) {checkForCardValue("3")};
    if (enemyThrowCradCnt === 0) {checkForCardValue("10")};
 
+   if(enemyThrowCradCnt === 0) {pickUpPile(enemyHand)};
    
      cardToPile(enemyHand);
      cardToPile(enemyHand);
@@ -631,7 +631,8 @@ function enemyPlayAlgoritem() {
     $(enemyNewCards[i]).appendTo('#enemyHandCards');
    }
    currentTurn(PlayerName);
-   
+
+
 }
 
   // We want to check if the enemy has more than 1 card of 
@@ -641,11 +642,20 @@ var enemyThrowCradCnt = 0;
 function checkForCardValue(value) {
   
     for ( var i = 0; i < enemyHand.length; i++) {
-        
-        if (enemyHand[i].getAttribute("value") === value ) {
+        var cardValue = +enemyHand[i].getAttribute("value");
+            
+        if (cardValue === +value && !currentValue) {
             enemyHand[i].setAttribute("id", "currentCard");
             enemyHand[i].innerHTML="<img class='cardflipped' src='css/cards/" + enemyHand[i].getAttribute("name") + ".jpg'/>";
             enemyThrowCradCnt++;
+        }
+        else if (cardValue === +value && cardValue >= currentValue) {
+            enemyHand[i].setAttribute("id", "currentCard");
+            enemyHand[i].innerHTML="<img class='cardflipped' src='css/cards/" + enemyHand[i].getAttribute("name") + ".jpg'/>";
+            enemyThrowCradCnt++;
+        }
+        else {
+            
         }
         
     }
@@ -654,3 +664,33 @@ function checkForCardValue(value) {
 
 
      
+function doCardAbility(card) {
+
+    if ( card.getAttribute('value') === '2') {
+        currentValue = 0;
+    }
+    if (card.getAttribute('value') === '3') {
+
+    }
+}
+
+function pickUpPile(array) {
+//TODO: needs to continue!
+
+    if (array === playerHand) {
+
+    }
+
+    if (array === enemyHand) {
+        for (var i = 0; i < cardsPlace.length; i++) {
+        var card = cardsPlace.splice(i, 1);
+        array.push(card[0]);
+        
+        $(card).appendTo('#enemyHandCards');
+        $(card).attr('class', 'hover');
+        $(card).attr('id', 'enemyHand');
+        $(card).attr( "onclick", " selectCard(this)");
+        
+    }
+  }
+}
