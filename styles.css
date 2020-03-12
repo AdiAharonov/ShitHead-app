@@ -67,13 +67,13 @@ position: absolute;
 top: 42%;
 
 border-radius: 4px;
-border: rgba(11, 126, 30, 0.644) solid 1px;
+/* border: rgba(11, 126, 30, 0.644) solid 1px; */
 
 height: 125px;
 width: 90px;
     
 border-radius: 4px;
-margin: 4px;
+
 
     
 box-shadow: 4px 4px 8px;
@@ -150,7 +150,7 @@ cursor: pointer;
 
 
 .moveCard {
-
+    
 }
 
 .moveECard {
@@ -213,6 +213,7 @@ cursor: pointer;
     text-shadow: rgba(11, 51, 88, 0.274) 2px 8px 3px;
     font-family: FreeMono, monospace;
     border-radius: 30px;
+    background-color: rgba(58, 139, 99, 0.582);
     
 
 }
@@ -230,9 +231,10 @@ cursor: pointer;
     font-family: FreeMono, monospace;
     border-radius: 30px;
     text-transform: capitalize;
+    background-color: rgba(58, 139, 99, 0.582);
 }
 
-.Turn {
+.currTurn {
     box-shadow: rgb(154, 247, 32) 1px 1px 25px;
     color: #eee;
     border: none;
@@ -240,10 +242,7 @@ cursor: pointer;
 
 
 .Pile {
-    
     position: absolute;
-    
-    
     
 
 }

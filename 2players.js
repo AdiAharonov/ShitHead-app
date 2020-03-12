@@ -48,6 +48,8 @@ eCard6 = document.getElementById('eCard6');
 
 let currentIndex;
 let currentCard;
+let cardCounter = document.getElementById('cardCounter');
+let cardCounterValue = 34;
 let start = document.getElementById('start');
 
 
@@ -67,25 +69,22 @@ function selectCard(card) {
         currentCard = document.getElementById('currentCard');
         
         currentIndex = playerHand.indexOf(card);
-        // console.log(currentCard, currentIndex);
         holdingCard = true;
          
         
-        
-        
     } 
 
-    else if (card && holdingCard && card.getAttribute('value') === currentCard.getAttribute('value') && Turn === true) {
+    else if (card !== currentCard && holdingCard && card.getAttribute('value') === currentCard.getAttribute('value') && startTurn === true) {
             
         card.classList.add('pause');
         card.setAttribute("id", "currentCard" );
 
 
     }
-    
+
     else if(card === currentCard && holdingCard) {
         card.classList.remove('pause');
-        card.setAttribute("id", "priviousCard")
+        card.setAttribute("id", "priviousCard");
         holdingCard = false;
         
     } 
@@ -93,6 +92,10 @@ function selectCard(card) {
 } 
 // To pick initial cards over hidden cards
 function pickPlace() {
+
+    if (currentCard) {
+
+    
     let fixedCard = currentCard;
     
     fixedCard.setAttribute("id", "fixedCard");
@@ -115,7 +118,7 @@ function pickPlace() {
     currentCard = null;
     holdingCard = false;
      
-
+} else { return}
 
 }
 
@@ -183,14 +186,12 @@ let enemyRevealedCards = document.getElementById('enemyRevealedCards');
 enemyRevealedCards = [];
 let holdingCard = false;
 let gameStarted;
+let EnemyName = document.getElementById('EnemyName');
+let PlayerName = document.getElementById('PlayerName');
 
 function startGame() {
-    let EnemyName = document.getElementById('EnemyName');
-    let PlayerName = document.getElementById('PlayerName');
+    
     PlayerName.innerText = prompt("Please insert your name: ");
-    
-    
-    
     
 
     setHandCards(playerHiddenCards, playerHand);
@@ -230,7 +231,7 @@ function setHandCards(hiddenarray, array) {
         card.classList.remove('card');
         card.classList.add('hover');
         card.innerHTML="<img class='cardflipped' src='css/cards/" + rndCard + ".jpg'/>";
-         convertNameToValue(card)
+         convertNameToValue(card);
     } 
     
    for (let card of hiddenarray) {
@@ -410,21 +411,19 @@ for (const card of enemyHand) {
 
     
 
-}
-
-    
-    
+   }
+   
 }
 
 
 
 // Start Game
 
-let Turn = false;
-
+let startTurn = false;
+let isPlayersTurn = false;
 
 function startPlay() {
-
+    var gameFinnished = false;
     
 
     $(".cardsPlace").attr("onclick", "cardToPile(playerHand)");
@@ -434,46 +433,75 @@ function startPlay() {
 
     pickFirst();
 
-    getCardFromDeck(playerHand);
+    // enemy start 
+    if (isPlayersTurn === false) {
+        setTimeout(enemyPlayAlgoritem, 2000);
+            for (var i = 0; i < enemyHand.length; i++) {
+                cardToPile(enemyHand[i]);
+            }
+    }
+
+}
 
 
-    
-   
-    
-
+function fillPlayerHand() {
+    var playerNewCards = getCardFromDeck(playerHand);
+            for ( var i = 0; i < playerNewCards.length; i++) {
+             $(playerNewCards[i]).appendTo('#playersHandCards');
+             playerNewCards[i].innerHTML="<img class='cardflipped' src='css/cards/" + playerNewCards[i].getAttribute("name") + ".jpg'/>";
+             playerNewCards[i].classList.remove('card');
+             playerNewCards[i].classList.add('hover');
+             $(playerNewCards[i]).attr( "onclick", " selectCard(this)");
+              
+            }
+            currentTurn(EnemyName); 
 }
 
 function selectFirstTurn(cardValue, array) {
 
-    
-
-    if (Turn === true) {
+    if (startTurn === true) {
         return;
     }
-
     for (const card of array) {
 
         if ( card.getAttribute("value") === cardValue) {
 
 
             if (array === playerHand) {
-                PlayerName.classList.add("Turn");
-                Turn = true;
-
+                currentTurn(PlayerName);
+                startTurn = true;
             } 
             else {
-                EnemyName.classList.add("Turn");
-                Turn = true;
+                currentTurn(EnemyName);
+                startTurn = true;
+            
             }
-    
-    
+
         }
 
     }
 
 }    
     
+function currentTurn(isTurn) {
 
+    if (isTurn === PlayerName) {
+    PlayerName.classList.add("currTurn");
+    PlayerName.setAttribute("id", "currTurn");
+    isPlayersTurn = true;
+
+    EnemyName.classList.remove("currTurn");
+    EnemyName.setAttribute("id", "enemyName");
+    }
+    else {
+    PlayerName.classList.remove("currTurn");
+    PlayerName.setAttribute("id", "playerName");
+    isPlayersTurn = false;
+
+    EnemyName.classList.add("currTurn");
+    EnemyName.setAttribute("id", "currTurn");
+    }
+}
 
     
 
@@ -483,10 +511,12 @@ function selectFirstTurn(cardValue, array) {
 let currentValue;
 
 function cardToPile(array) {
+    
+    if (array === playerHand && currentCard) {
 
-    for (const card of array)  {
+        for (const card of array)  {
 
-        if (card.id === 'currentCard') {
+           if (card.id === 'currentCard') {
 
             $(card).appendTo('#cardsPlace');
             $(card).attr('class', 'Pile');
@@ -498,51 +528,129 @@ function cardToPile(array) {
 
              currentValue = card.getAttribute('value'); 
 
-
-
-
-            
-
+          }
         }
-    }
+        holdingCard = false;
         
+        setTimeout(fillPlayerHand, 500);
+        // retun turn to enemy
+        endEnemyTurn = false;
+        setTimeout(enemyPlayAlgoritem, 2000);
+            // for (var i = 0; i < enemyHand.length; i++) {
+            //     cardToPile(enemyHand[i]);
+            // }
         
+     }
+     if (array === enemyHand) {
+        for (const card of array)  {
 
-    
-
-   
-
-    
-
+            if (card.id === 'currentCard') {
+ 
+             $(card).appendTo('#cardsPlace');
+             $(card).attr('class', 'Pile');
+             $(card).attr('id', 'Pile');
+             $(card).attr("onClick", null);
+             
+ 
+             let piledCard = array.splice(array.indexOf(card), 1);
+             cardsPlace.push(piledCard[0]);
+ 
+              currentValue = card.getAttribute('value'); 
+              
+         }
+      }
+      
+   }
+  
 }
-
-let newHandCard;
 
 
 // The function picks the one who starts
 function pickFirst() {
 
-    for (i = 4; i <= 13; i++) {
+    for (var i = 4; i <= 13; i++) {
         selectFirstTurn(i.toString(), playerHand);
         selectFirstTurn(i.toString(), enemyHand);
         
     }
 }
 
-//TODO: find a way to fill players cards from the deck.
+
 
 function  getCardFromDeck(array) {
+    var newCards = [];
 
-    if (array.length < 3 ) {
-
-        newHandCard = randomCard();
+    while (array.length < 3 ) {
+        var newHandCard = randomCard();
+        cardCounterValue--;
+        cardCounter.innerText = cardCounterValue;
+        var newHandCardName = newHandCard;
         newHandCard = document.createElement('div');
+        newHandCard.setAttribute("name", newHandCardName);
+        convertNameToValue(newHandCard);
         newHandCard.setAttribute('class', 'card');
-        $(newHandCard).appendTo('#playersHandCards');
+        newHandCard.setAttribute("id", "newCard");
         array.push(newHandCard);
-        console.log(newHandCard);
-
+        newCards.push(newHandCard);
+        
     }
 
+    return newCards;
 
 }
+
+
+
+function enemyPlayAlgoritem() {
+
+    
+   if (enemyThrowCradCnt === 0) {checkForCardValue("4")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("5")} ;
+   if (enemyThrowCradCnt === 0) {checkForCardValue("6")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("7")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("8")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("9")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("11")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("12")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("13")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("1")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("2")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("3")};
+   if (enemyThrowCradCnt === 0) {checkForCardValue("10")};
+
+   
+     cardToPile(enemyHand);
+     cardToPile(enemyHand);
+     cardToPile(enemyHand);
+  
+    
+   enemyThrowCradCnt = 0;
+   var enemyNewCards = getCardFromDeck(enemyHand);
+   
+   for ( var i = 0; i < enemyNewCards.length; i++) {
+    $(enemyNewCards[i]).appendTo('#enemyHandCards');
+   }
+   currentTurn(PlayerName);
+   
+}
+
+  // We want to check if the enemy has more than 1 card of 
+//the same value
+var enemyThrowCradCnt = 0;
+
+function checkForCardValue(value) {
+  
+    for ( var i = 0; i < enemyHand.length; i++) {
+        
+        if (enemyHand[i].getAttribute("value") === value ) {
+            enemyHand[i].setAttribute("id", "currentCard");
+            enemyHand[i].innerHTML="<img class='cardflipped' src='css/cards/" + enemyHand[i].getAttribute("name") + ".jpg'/>";
+            enemyThrowCradCnt++;
+        }
+        
+    }
+
+}
+
+
+     
