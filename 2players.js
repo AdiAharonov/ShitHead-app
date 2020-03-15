@@ -79,14 +79,17 @@ function selectCard(card) {
             
         card.classList.add('pause');
         card.setAttribute("id", "currentCard" );
-
+        card.classList.remove('hover');
+        currentCard = card;
 
     }
 
     else if(card === currentCard && holdingCard) {
         card.classList.remove('pause');
         card.setAttribute("id", "priviousCard");
+        card.classList.add('hover');
         holdingCard = false;
+        currentCard = null;
         
     } 
  
@@ -107,9 +110,6 @@ function pickPlace() {
     $(".moveCard").appendTo("#playerRevealedCards");
 
     
-    
-    
-
     if (playerRevealedCards.length === 2) {
         return;
     }
@@ -433,9 +433,7 @@ let startTurn = false;
 let isPlayersTurn = false;
 
 function startPlay() {
-    var gameFinnished = false;
     
-
     $(".cardsPlace").attr("onclick", "cardToPile(playerHand)");
     
 
@@ -462,8 +460,13 @@ function fillPlayerHand() {
              playerNewCards[i].classList.remove('card');
              playerNewCards[i].classList.add('hover');
              $(playerNewCards[i]).attr( "onclick", " selectCard(this)");
-              
             }
+            if (playerHand.length < 4) {
+
+            for (const card of playerHand) {
+                card.classList.remove('manyCards');
+            }
+        }
             currentTurn(EnemyName); 
 }
 
@@ -496,6 +499,7 @@ function selectFirstTurn(cardValue, array) {
 function currentTurn(isTurn) {
 
     if (isTurn === PlayerName) {
+    $(".cardsPlace").attr("onclick", "cardToPile(playerHand)");
     PlayerName.classList.add("currTurn");
     PlayerName.setAttribute("id", "currTurn");
     isPlayersTurn = true;
@@ -504,6 +508,7 @@ function currentTurn(isTurn) {
     EnemyName.setAttribute("id", "enemyName");
     }
     else {
+    $(".cardsPlace").attr("onclick", null);    
     PlayerName.classList.remove("currTurn");
     PlayerName.setAttribute("id", "playerName");
     isPlayersTurn = false;
@@ -522,13 +527,25 @@ function currentTurn(isTurn) {
 
 //drag card to pile & update current value
 
-let currentValue;
+let currentValue = 0;
 
 function cardToPile(array) {
+
+    if (array === playerHand && !currentCard) {
+        pickUpPile(playerHand);
+        endEnemyTurn = false;
+        currentTurn(EnemyName);
+        setTimeout(enemyPlayAlgoritem, 2000);
+    }
+
     
     if (array === playerHand && currentCard) {
-        //TODO: fix bug, dosent find all cards 
-        for (const card of array)  {
+
+        if (+(currentCard.getAttribute('value')) < currentValue) {
+            return;
+        }
+        
+        for (const card of array.slice())  {
 
            if (card.id === 'currentCard') {
 
@@ -541,20 +558,21 @@ function cardToPile(array) {
             cardsPlace.push(piledCard[0]);
 
              currentValue = card.getAttribute('value'); 
-
+             
           }
         }
+
+        currentCard = null;
         holdingCard = false;
         
-        setTimeout(fillPlayerHand, 500);
+        setTimeout(fillPlayerHand, 1000);
         // retun turn to enemy
         endEnemyTurn = false;
         setTimeout(enemyPlayAlgoritem, 2000);
-            // for (var i = 0; i < enemyHand.length; i++) {
-            //     cardToPile(enemyHand[i]);
-            // }
-        
+            
      }
+     
+
      if (array === enemyHand) {
         for (const card of array)  {
             
@@ -685,19 +703,29 @@ function checkForCardValue(value) {
 }
 
 
-     
+     //TODO: need to complite
 function doCardAbility(card) {
 
     if ( card.getAttribute('value') === '2') {
         currentValue = 0;
     }
     if (card.getAttribute('value') === '3') {
+        currentValue = cardsPlace[cardsPlace.length - 1];
+    }
+    if (card.getAttribute('value') === '7') {
 
+    }
+    if (card.getAttribute('value') === '8') {
+        currentValue(PlayerName);
+    }
+    if (card.getAttribute('value') === '10') {
+
+            cardsPlace = [];
     }
 }
 
 function pickUpPile(array) {
-//TODO: needs to continue!
+
 
     if (array === playerHand) {
         var cardsPlaceLength = cardsPlace.length;
@@ -709,11 +737,10 @@ function pickUpPile(array) {
         array.push(card[0]);
         
         
-        $(card).appendTo('#playerHandCards');
-        $(card).attr('class', 'card');
+        $(card).appendTo('#playersHandCards');
         $(card).attr('id', 'playerHand');
-        $(card).empty();
         $(card).attr( "onclick", " selectCard(this)");
+        $(card).attr('class', 'hover');
        }
 
        for (const card of array) {
@@ -721,7 +748,7 @@ function pickUpPile(array) {
         
       }
     
-       
+       currentValue = 0;
     }
 
     if (array === enemyHand) {
@@ -743,6 +770,17 @@ function pickUpPile(array) {
        for (const card of array) {
         card.classList.add('manyCards');
       }
+
+      currentValue = 0;
     
   }
 }
+
+
+//TODO:
+
+// fix between turns pickuppile
+// make function for four of the same card in a row
+// make the play for the final cards
+// make the css better
+
